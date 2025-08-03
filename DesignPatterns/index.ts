@@ -3,6 +3,7 @@ import * as AdapterSamples from "./Structural/Adapter";
 import * as CommandSamples from "./Behavioral/Command";
 import * as VisitorSamples from "./Behavioral/Visitor";
 import * as BridgeSamples from "./Structural/Bridge";
+import * as CompositeSamples from "./Structural/Composite";
 import { PatternGroupType, PatternGroup } from "../ISample";
 
 const registry: PatternGroup[] = [
@@ -30,6 +31,11 @@ const registry: PatternGroup[] = [
     pattern: "Bridge",
     type: PatternGroupType.Structural,
     implementations: BridgeSamples.Samples
+  },
+  {
+    pattern: "Composite",
+    type: PatternGroupType.Structural,
+    implementations: CompositeSamples.Samples
   }
 ];
 
