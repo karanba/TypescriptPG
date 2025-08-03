@@ -1,3 +1,5 @@
+import { ISample } from "../../../ISample";
+
 // Step 1: Define interfaces
 interface Expression {
   accept<T>(visitor: ExpressionVisitor<T>): T;
@@ -18,14 +20,20 @@ class NumberLiteral implements Expression {
 }
 
 class AddExpression implements Expression {
-  constructor(public left: Expression, public right: Expression) {}
+  constructor(
+    public left: Expression,
+    public right: Expression,
+  ) {}
   accept<T>(visitor: ExpressionVisitor<T>): T {
     return visitor.visitAddExpression(this);
   }
 }
 
 class MultiplyExpression implements Expression {
-  constructor(public left: Expression, public right: Expression) {}
+  constructor(
+    public left: Expression,
+    public right: Expression,
+  ) {}
   accept<T>(visitor: ExpressionVisitor<T>): T {
     return visitor.visitMultiplyExpression(this);
   }
@@ -57,17 +65,22 @@ class PrettyPrinter implements ExpressionVisitor<string> {
   }
 }
 
+export class Ats implements ISample {
+  getName(): string {
+    return "Ats Sample";
+  }
+  run(): string {
+    const expr: Expression = new MultiplyExpression(
+      new AddExpression(new NumberLiteral(2), new NumberLiteral(3)),
+      new NumberLiteral(4),
+    );
 
-export function demo () {
-  // Step 4: Demo
-  const expr: Expression = new MultiplyExpression(
-    new AddExpression(new NumberLiteral(2), new NumberLiteral(3)),
-    new NumberLiteral(4)
-  );
+    const evaluator = new Evaluator();
+    const printer = new PrettyPrinter();
 
-  const evaluator = new Evaluator();
-  const printer = new PrettyPrinter();
+    console.log("Evaluated:", expr.accept(evaluator)); // Output: Evaluated: 20
+    console.log("Printed: ", expr.accept(printer)); // Output: Printed: ((2 + 3) * 4)
 
-  console.log('Evaluated:', expr.accept(evaluator));     // Output: Evaluated: 20
-  console.log('Printed: ', expr.accept(printer));       // Output: Printed: ((2 + 3) * 4)
+    return "Ats Sample Invoked";
+  }
 }

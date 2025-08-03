@@ -1,3 +1,5 @@
+import { ISample } from "../../../ISample";
+
 interface Error {
   errorMessage: string;
   createdAt: Date;
@@ -30,12 +32,20 @@ class COMErrorAdapter implements Error {
   }
 }
 
-export function ErrorDemo() {
-  const error = new DivideByZeroError();
-  console.log(error.errorMessage);
+export class ErrorSample implements ISample {
+  
+    getName(): string {
+        return "Error Sample";
+    }
+    run(): string {
+        const error = new DivideByZeroError();
+        console.log(error.errorMessage);
 
-  const comError = new COMError();
-  const comErrorAdapter = new COMErrorAdapter(comError);
+        const comError = new COMError();
+        const comErrorAdapter = new COMErrorAdapter(comError);
 
-  console.log(comErrorAdapter.errorMessage);
+        console.log(comErrorAdapter.errorMessage);
+      return "Error Sample Invoked";
+    }
 }
+

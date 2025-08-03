@@ -1,66 +1,65 @@
 import * as http from "http";
-import * as Sorting from "./DesignPatterns/Behavioral/Strategy/Sorting";
-import * as EventManagementSystem from "./DesignPatterns/Behavioral/TemplateMethod/EventManagementSystem";
-import * as Ats from "./DesignPatterns/Behavioral/Visitor/Ats";
-import * as Adapter from "./DesignPatterns/Structural/Adapter/error";
+import { parse } from "url";
+import { readFile } from "fs/promises";
+import * as ejs from "ejs";
+import registry from "./DesignPatterns";
+import { PatternGroupType } from "./ISample";
+
 const port = 3000;
 const hostname = "0.0.0.0";
 
-const server = http.createServer((req, res) => {
-  const { method, url } = req;
-  const parsedUrl = new URL(url, `http://${req.headers.host}`);
-  const pathname = parsedUrl.pathname;
+function groupByType(registry: PatternGroup[]) {
+  const grouped: Record<PatternGroupType, PatternGroup[]> = {
+    [PatternGroupType.Creational]: [],
+    [PatternGroupType.Structural]: [],
+    [PatternGroupType.Behavioral]: []
+  };
 
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/html");
-  switch (pathname) {
-    case "/":
-      // write lit of endpoints as html links
-      res.write("<h1>Design Patterns Demo</h1>");
+  registry.forEach((group) => {
+    grouped[group.type].push(group);
+  });
 
-      res.write("<h2>Behavioral</h2>");
+  return grouped;
+}
 
-      res.write("<h3>Strategy</h3>");
-      res.write("<a href='/strategy'>Strategy</a>");
-      res.write("<br>");
-      res.write("<h3>Template Method</h3>");
-      res.write("<a href='/template'>Template Method</a>");
+const groupedRegistry = groupByType(registry);
 
-      res.write("<h3>Visitor</h3>");
-      res.write("<a href='/visitor'>Visitor</a>");
+async function renderTemplate(file: string, data: any) {
+  const template = await readFile(`views/${file}`, "utf-8");
+  return ejs.render(template, data);
+}
 
-      res.write("<h2>Creational</h2>");
-      res.write("<h3>Singleton</h3>");
-      res.write("<h3>Factory Method</h3>");
-      res.write("<h3>Abstract Factory</h3>");
-      res.write("<h3>Builder</h3>");
+const server = http.createServer(async (req, res) => {
+  const parsedUrl = parse(req.url ?? "", true);
 
-      res.write("<h2>Structural</h2>");
-      res.write("<h3>Adapter</h3>");
-      res.write("<a href='/adapter'>Adapter</a>");
-      res.write("<h3>Bridge</h3>");
-      res.write("<h3>Composite</h3>");
-      res.write("<h3>Decorator</h3>");
-      res.end("Welcome to the Design Patterns Demo!");
-      break;
-    case "/strategy":
-      Sorting.runSortingDemo();
-      res.end("Sorting demo executed. Check the console for results.");
-      break;
-    case "/template":
-      EventManagementSystem.EventManagementSystemDemo();
-      res.end(
-        "Event Management System demo executed. Check the console for results.",
-      );
-      break;
-    case "/visitor":
-      Ats.demo();
-      res.end("Ats demo executed. Check the console for results.");
-    case "/adapter":
-      Adapter.ErrorDemo();
-      res.end("Adapter demo executed. Check the console for results.");
-    default:
-      res.statusCode = 404;
+  try {
+    if (parsedUrl.pathname === "/") {
+      const html = await renderTemplate("index.ejs.html", { groupedRegistry });
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(html);
+    } else if (parsedUrl.pathname === "/run") {
+      const patternName = parsedUrl.query.pattern as string;
+      const implIdx = Number(parsedUrl.query.i);
+
+      const group = registry.find((g) => g.pattern === patternName);
+
+      if (group && group.implementations[implIdx]) {
+        const impl = group.implementations[implIdx];
+        const result = impl.run();
+        const html = await renderTemplate("run.ejs.html", { group, impl, result });
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(html);
+      } else {
+        res.writeHead(404, { "Content-Type": "text/plain" });
+        res.end("Sample not found");
+      }
+    } else {
+      res.writeHead(404, { "Content-Type": "text/plain" });
+      res.end("Not Found");
+    }
+  } catch (error) {
+    res.writeHead(500, { "Content-Type": "text/plain" });
+    res.end("Server Error: " + error);
   }
 });
 

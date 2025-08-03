@@ -1,3 +1,5 @@
+import { ISample } from "./ISample";
+
 // Step 1: Define the strategy interface
 interface SortingStrategy {
   sort(array: number[]): number[];
@@ -9,7 +11,7 @@ interface SortingStrategy {
 // Bubble Sort: O(n²) time complexity
 class BubbleSort implements SortingStrategy {
   sort(array: number[]): number[] {
-    console.time('BubbleSort');
+    console.time("BubbleSort");
     const result = [...array];
     const n = result.length;
 
@@ -22,7 +24,7 @@ class BubbleSort implements SortingStrategy {
       }
     }
 
-    console.timeEnd('BubbleSort');
+    console.timeEnd("BubbleSort");
     return result;
   }
 
@@ -34,9 +36,9 @@ class BubbleSort implements SortingStrategy {
 // Merge Sort: O(n log n) time complexity
 class MergeSort implements SortingStrategy {
   sort(array: number[]): number[] {
-    console.time('MergeSort');
+    console.time("MergeSort");
     const result = this.mergeSort([...array]);
-    console.timeEnd('MergeSort');
+    console.timeEnd("MergeSort");
     return result;
   }
 
@@ -49,10 +51,7 @@ class MergeSort implements SortingStrategy {
     const left = array.slice(0, middle);
     const right = array.slice(middle);
 
-    return this.merge(
-      this.mergeSort(left),
-      this.mergeSort(right)
-    );
+    return this.merge(this.mergeSort(left), this.mergeSort(right));
   }
 
   private merge(left: number[], right: number[]): number[] {
@@ -81,10 +80,10 @@ class MergeSort implements SortingStrategy {
 // Quick Sort: O(n log n) average time complexity, O(n²) worst case
 class QuickSort implements SortingStrategy {
   sort(array: number[]): number[] {
-    console.time('QuickSort');
+    console.time("QuickSort");
     const result = [...array];
     this.quickSort(result, 0, result.length - 1);
-    console.timeEnd('QuickSort');
+    console.timeEnd("QuickSort");
     return result;
   }
 
@@ -137,33 +136,40 @@ class Sorter {
   }
 }
 
-// Step 4: Client code
-export function runSortingDemo() {
-  const arrayToSort = [64, 34, 25, 12, 22, 11, 90];
-  console.log("Original array:", arrayToSort);
+export class SortingSample implements ISample {
+  getName(): string {
+    return "Sorting Sample";
+  }
 
-  // Create strategies
-  const bubbleSort = new BubbleSort();
-  const mergeSort = new MergeSort();
-  const quickSort = new QuickSort();
+  run(): string {
+    const arrayToSort = [64, 34, 25, 12, 22, 11, 90];
+    console.log("Original array:", arrayToSort);
 
-  // Create sorter with initial strategy
-  const sorter = new Sorter(bubbleSort);
+    // Create strategies
+    const bubbleSort = new BubbleSort();
+    const mergeSort = new MergeSort();
+    const quickSort = new QuickSort();
 
-  // Sort with Bubble Sort
-  console.log(`\nSorting with ${sorter.getStrategyName()}:`);
-  const bubbleSorted = sorter.sort(arrayToSort);
-  console.log("Result:", bubbleSorted);
+    // Create sorter with initial strategy
+    const sorter = new Sorter(bubbleSort);
 
-  // Change strategy to Merge Sort and sort
-  sorter.setStrategy(mergeSort);
-  console.log(`\nSorting with ${sorter.getStrategyName()}:`);
-  const mergeSorted = sorter.sort(arrayToSort);
-  console.log("Result:", mergeSorted);
+    // Sort with Bubble Sort
+    console.log(`\nSorting with ${sorter.getStrategyName()}:`);
+    const bubbleSorted = sorter.sort(arrayToSort);
+    console.log("Result:", bubbleSorted);
 
-  // Change strategy to Quick Sort and sort
-  sorter.setStrategy(quickSort);
-  console.log(`\nSorting with ${sorter.getStrategyName()}:`);
-  const quickSorted = sorter.sort(arrayToSort);
-  console.log("Result:", quickSorted);
+    // Change strategy to Merge Sort and sort
+    sorter.setStrategy(mergeSort);
+    console.log(`\nSorting with ${sorter.getStrategyName()}:`);
+    const mergeSorted = sorter.sort(arrayToSort);
+    console.log("Result:", mergeSorted);
+
+    // Change strategy to Quick Sort and sort
+    sorter.setStrategy(quickSort);
+    console.log(`\nSorting with ${sorter.getStrategyName()}:`);
+    const quickSorted = sorter.sort(arrayToSort);
+    console.log("Result:", quickSorted);
+
+    return `Sorting Sample invoked`;
+  }
 }
