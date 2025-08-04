@@ -13,6 +13,7 @@ import * as AbstractFactorySamples from "./Creational/AbstractFactory";
 import * as BuilderSamples from "./Creational/Builder";
 import * as FacadeSamples from "./Structural/Facade";
 import * as FlyweightSamples from "./Structural/Flyweight";
+import * as ProxySamples from "./Structural/Proxy";
 
 import { PatternGroupType, PatternGroup } from "../ISample";
 const registry: PatternGroup[] = [
@@ -90,6 +91,11 @@ const registry: PatternGroup[] = [
     pattern: "Flyweight",
     type: PatternGroupType.Structural,
     implementations: FlyweightSamples.Samples,
+  },
+  {
+    pattern: "Proxy",
+    type: PatternGroupType.Structural,
+    implementations: ProxySamples.Samples,
   },
 ];
 
