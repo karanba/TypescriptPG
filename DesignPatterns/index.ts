@@ -6,6 +6,7 @@ import * as BridgeSamples from "./Structural/Bridge";
 import * as CompositeSamples from "./Structural/Composite";
 import * as DecoratorSamples from "./Structural/Decorator";
 import * as InterpreterSamples from "./Behavioral/Interpreter";
+import * as PrototypeSamples from "./Creational/Prototype"
 
 import { PatternGroupType, PatternGroup } from "../ISample";
 
@@ -50,6 +51,11 @@ const registry: PatternGroup[] = [
     type: PatternGroupType.Behavioral,
     implementations: InterpreterSamples.Samples,
   },
+  {
+    pattern: "Prototype",
+    type: PatternGroupType.Creational,
+    implementations: PrototypeSamples.Samples
+  }
 ];
 
 export default registry;
