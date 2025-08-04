@@ -9,6 +9,7 @@ import * as InterpreterSamples from "./Behavioral/Interpreter";
 import * as PrototypeSamples from "./Creational/Prototype";
 import * as SingletonSamples from "./Creational/Singelton";  
 import * as FactoryMethodSamples from "./Creational/FactoryMethod";
+import * as AbstractFactorySamples from "./Creational/AbstractFactory";
 
 import { PatternGroupType, PatternGroup } from "../ISample";
 
@@ -67,6 +68,11 @@ const registry: PatternGroup[] = [
     pattern: "FactoryMethod",
     type: PatternGroupType.Creational,
     implementations: FactoryMethodSamples.Samples
+  },
+  {
+    pattern: "AbstractFactory",
+    type: PatternGroupType.Creational,
+    implementations: AbstractFactorySamples.Samples
   }
 ];
 
