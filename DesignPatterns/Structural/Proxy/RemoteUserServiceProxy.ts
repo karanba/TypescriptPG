@@ -23,7 +23,7 @@ class RemoteUserServiceProxy implements UserService {
       `🌐 Sending request to remote server at ${this.baseUrl}/user/${id}`,
     );
     // Burada fetch ile uzak sunucuya istek atıyoruz
-    const response = await fetch(`${this.baseUrl}/user/${id}`);
+    const response = await fetch(`${this.baseUrl}/users/${id}`);
     if (!response.ok) {
       throw new Error("Failed to fetch user data");
     }
