@@ -8,6 +8,7 @@ import * as DecoratorSamples from "./Structural/Decorator";
 import * as InterpreterSamples from "./Behavioral/Interpreter";
 import * as PrototypeSamples from "./Creational/Prototype";
 import * as SingletonSamples from "./Creational/Singelton";  
+import * as FactoryMethodSamples from "./Creational/FactoryMethod";
 
 import { PatternGroupType, PatternGroup } from "../ISample";
 
@@ -61,6 +62,11 @@ const registry: PatternGroup[] = [
     pattern: "Singleton",
     type: PatternGroupType.Creational,
     implementations: SingletonSamples.Samples
+  },
+  {
+    pattern: "FactoryMethod",
+    type: PatternGroupType.Creational,
+    implementations: FactoryMethodSamples.Samples
   }
 ];
 
