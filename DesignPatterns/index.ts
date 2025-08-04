@@ -10,7 +10,7 @@ import * as PrototypeSamples from "./Creational/Prototype";
 import * as SingletonSamples from "./Creational/Singelton";  
 import * as FactoryMethodSamples from "./Creational/FactoryMethod";
 import * as AbstractFactorySamples from "./Creational/AbstractFactory";
-
+import * as BuilderSamples from "./Creational/Builder";
 import { PatternGroupType, PatternGroup } from "../ISample";
 
 const registry: PatternGroup[] = [
@@ -73,6 +73,11 @@ const registry: PatternGroup[] = [
     pattern: "AbstractFactory",
     type: PatternGroupType.Creational,
     implementations: AbstractFactorySamples.Samples
+  },
+  {
+    pattern: "Builder",
+    type: PatternGroupType.Creational,
+    implementations: BuilderSamples.Samples
   }
 ];
 
