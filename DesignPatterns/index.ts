@@ -4,6 +4,9 @@ import * as CommandSamples from "./Behavioral/Command";
 import * as VisitorSamples from "./Behavioral/Visitor";
 import * as BridgeSamples from "./Structural/Bridge";
 import * as CompositeSamples from "./Structural/Composite";
+import * as DecoratorSamples from "./Structural/Decorator";
+import * as InterpreterSamples from "./Behavioral/Interpreter";
+
 import { PatternGroupType, PatternGroup } from "../ISample";
 
 const registry: PatternGroup[] = [
@@ -30,13 +33,23 @@ const registry: PatternGroup[] = [
   {
     pattern: "Bridge",
     type: PatternGroupType.Structural,
-    implementations: BridgeSamples.Samples
+    implementations: BridgeSamples.Samples,
   },
   {
     pattern: "Composite",
     type: PatternGroupType.Structural,
-    implementations: CompositeSamples.Samples
-  }
+    implementations: CompositeSamples.Samples,
+  },
+  {
+    pattern: "Decorator",
+    type: PatternGroupType.Structural,
+    implementations: DecoratorSamples.Samples,
+  },
+  {
+    pattern: "Interpreter",
+    type: PatternGroupType.Behavioral,
+    implementations: InterpreterSamples.Samples,
+  },
 ];
 
 export default registry;
