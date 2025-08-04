@@ -12,8 +12,9 @@ import * as FactoryMethodSamples from "./Creational/FactoryMethod";
 import * as AbstractFactorySamples from "./Creational/AbstractFactory";
 import * as BuilderSamples from "./Creational/Builder";
 import * as FacadeSamples from "./Structural/Facade";
-import { PatternGroupType, PatternGroup } from "../ISample";
+import * as FlyweightSamples from "./Structural/Flyweight";
 
+import { PatternGroupType, PatternGroup } from "../ISample";
 const registry: PatternGroup[] = [
   {
     pattern: "Strategy",
@@ -84,6 +85,11 @@ const registry: PatternGroup[] = [
     pattern: "Facade",
     type: PatternGroupType.Structural,
     implementations: FacadeSamples.Samples,
+  },
+  {
+    pattern: "Flyweight",
+    type: PatternGroupType.Structural,
+    implementations: FlyweightSamples.Samples,
   },
 ];
 
