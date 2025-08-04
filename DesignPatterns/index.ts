@@ -7,10 +7,11 @@ import * as CompositeSamples from "./Structural/Composite";
 import * as DecoratorSamples from "./Structural/Decorator";
 import * as InterpreterSamples from "./Behavioral/Interpreter";
 import * as PrototypeSamples from "./Creational/Prototype";
-import * as SingletonSamples from "./Creational/Singelton";  
+import * as SingletonSamples from "./Creational/Singelton";
 import * as FactoryMethodSamples from "./Creational/FactoryMethod";
 import * as AbstractFactorySamples from "./Creational/AbstractFactory";
 import * as BuilderSamples from "./Creational/Builder";
+import * as FacadeSamples from "./Structural/Facade";
 import { PatternGroupType, PatternGroup } from "../ISample";
 
 const registry: PatternGroup[] = [
@@ -57,28 +58,33 @@ const registry: PatternGroup[] = [
   {
     pattern: "Prototype",
     type: PatternGroupType.Creational,
-    implementations: PrototypeSamples.Samples
+    implementations: PrototypeSamples.Samples,
   },
   {
     pattern: "Singleton",
     type: PatternGroupType.Creational,
-    implementations: SingletonSamples.Samples
+    implementations: SingletonSamples.Samples,
   },
   {
     pattern: "FactoryMethod",
     type: PatternGroupType.Creational,
-    implementations: FactoryMethodSamples.Samples
+    implementations: FactoryMethodSamples.Samples,
   },
   {
     pattern: "AbstractFactory",
     type: PatternGroupType.Creational,
-    implementations: AbstractFactorySamples.Samples
+    implementations: AbstractFactorySamples.Samples,
   },
   {
     pattern: "Builder",
     type: PatternGroupType.Creational,
-    implementations: BuilderSamples.Samples
-  }
+    implementations: BuilderSamples.Samples,
+  },
+  {
+    pattern: "Facade",
+    type: PatternGroupType.Structural,
+    implementations: FacadeSamples.Samples,
+  },
 ];
 
 export default registry;
