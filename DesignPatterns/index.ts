@@ -14,6 +14,7 @@ import * as BuilderSamples from "./Creational/Builder";
 import * as FacadeSamples from "./Structural/Facade";
 import * as FlyweightSamples from "./Structural/Flyweight";
 import * as ProxySamples from "./Structural/Proxy";
+import * as ChainOfResponsibilitySamples from "./Behavioral/ChainOfResponsibility";
 
 import { PatternGroupType, PatternGroup } from "../ISample";
 const registry: PatternGroup[] = [
@@ -96,6 +97,11 @@ const registry: PatternGroup[] = [
     pattern: "Proxy",
     type: PatternGroupType.Structural,
     implementations: ProxySamples.Samples,
+  },
+  {
+    pattern: "ChainOfResponsibility",
+    type: PatternGroupType.Behavioral,
+    implementations: ChainOfResponsibilitySamples.Samples,
   },
 ];
 
