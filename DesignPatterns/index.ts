@@ -16,6 +16,7 @@ import * as FlyweightSamples from "./Structural/Flyweight";
 import * as ProxySamples from "./Structural/Proxy";
 import * as ChainOfResponsibilitySamples from "./Behavioral/ChainOfResponsibility";
 import * as IteratorSamples from "./Behavioral/Iterator";
+import * as MediatorSamples from "./Behavioral/Mediator";
 
 import { PatternGroupType, PatternGroup } from "../ISample";
 const registry: PatternGroup[] = [
@@ -108,6 +109,11 @@ const registry: PatternGroup[] = [
     pattern: "Iterator",
     type: PatternGroupType.Behavioral,
     implementations: IteratorSamples.Samples,
+  },
+  {
+    pattern: "Mediator",
+    type: PatternGroupType.Behavioral,
+    implementations: MediatorSamples.Samples,
   },
 ];
 
