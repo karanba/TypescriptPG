@@ -19,6 +19,7 @@ import * as IteratorSamples from "./Behavioral/Iterator";
 import * as MediatorSamples from "./Behavioral/Mediator";
 import * as MomentoSamples from "./Behavioral/Memento";
 import * as ObserverSamples from "./Behavioral/Observer";
+import * as StateSamples from "./Behavioral/State";
 
 import { PatternGroupType, PatternGroup } from "../ISample";
 const registry: PatternGroup[] = [
@@ -126,6 +127,11 @@ const registry: PatternGroup[] = [
     pattern: "Observer",
     type: PatternGroupType.Behavioral,
     implementations: ObserverSamples.Samples,
+  },
+  {
+    pattern: "State",
+    type: PatternGroupType.Behavioral,
+    implementations: StateSamples.Samples,
   },
 ];
 
