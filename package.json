@@ -1,11 +1,14 @@
 {
   "name": "nodejs-typescript",
   "version": "1.0.0",
-  "description": "",
+  "description": "TypescriptPG is a lightweight, experimental playground for TypeScript. It’s designed for learning, prototyping, and documenting core TypeScript concepts and software design approaches through small, focused examples.",
   "main": "index.ts",
   "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karanba/TypescriptPG.git"
+  },
+  "scripts": {    
     "start": "tsx ./index.ts"
   },
   "author": "",
