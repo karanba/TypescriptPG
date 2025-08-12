@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-typescript",
+  "name": "typescriptpg",
   "version": "1.0.0",
   "description": "TypescriptPG is a lightweight, experimental playground for TypeScript. It’s designed for learning, prototyping, and documenting core TypeScript concepts and software design approaches through small, focused examples.",
   "main": "index.ts",

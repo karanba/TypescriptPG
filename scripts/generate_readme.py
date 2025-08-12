@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+from urllib.parse import urlparse
 
 def generate_toc(repo_path):
     ignore_dirs = {'.git', 'node_modules', 'dist', 'build', '__pycache__', '.idea', '.vscode'}
@@ -40,7 +41,6 @@ def generate_toc(repo_path):
             ext = os.path.splitext(entry)[1]
             if ext not in include_exts:
                 continue
-            abs_p = os.path.join(path, entry)
             rel_p = to_posix(os.path.join(base_rel, entry))
             lines.append(f"{indent}- [`{entry}`]({rel_p})")
 
@@ -51,7 +51,43 @@ def generate_toc(repo_path):
     # Read package.json for scripts and repository URL
     usage_section = ""
     repo_url = "<repo-url>"
+    clone_url = repo_url  # normalized for git clone (e.g., strip git+ prefix)
+    repo_folder = "<repo-folder>"
     package_json_path = os.path.join(repo_path, "package.json")
+
+    def derive_repo_folder(url: str) -> str:
+        if not url or url == "<repo-url>":
+            return repo_folder
+        u = url.strip()
+        # Strip npm-style prefix like git+https://
+        if u.startswith('git+'):
+            u = u[4:]
+        u = u.rstrip('/')
+
+        # Determine path part for different URL styles
+        path_part = ''
+        if '://' in u:
+            # Handles https://, http://, ssh://, git://, etc.
+            parsed = urlparse(u)
+            path_part = parsed.path or ''
+            if path_part.startswith('/'):
+                path_part = path_part[1:]
+        elif '@' in u and ':' in u:
+            # scp-like syntax: git@github.com:owner/repo.git
+            path_part = u.split(':', 1)[1]
+        else:
+            # Shorthands: owner/repo or github:owner/repo
+            path_part = u.split(':', 1)[-1]
+
+        # Drop trailing .git if present
+        if path_part.endswith('.git'):
+            path_part = path_part[:-4]
+
+        # Derive repo folder from the last path segment
+        parts = [p for p in path_part.split('/') if p]
+        base = parts[-1] if parts else repo_folder
+        return base
+
     if os.path.isfile(package_json_path):
         try:
             with open(package_json_path, "r", encoding="utf-8") as f:
@@ -68,6 +104,13 @@ def generate_toc(repo_path):
                 repo_url = repo_info.get("url", repo_url)
             elif isinstance(repo_info, str):
                 repo_url = repo_info
+
+            # normalize for git clone (remove git+ prefix)
+            clone_url = repo_url
+            if isinstance(clone_url, str) and clone_url.startswith('git+'):
+                clone_url = clone_url[4:]
+
+            repo_folder = derive_repo_folder(repo_url)
         except Exception as e:
             usage_section = f"_Could not read package.json scripts: {e}_"
     else:
@@ -98,8 +141,8 @@ It’s designed for **learning, prototyping, and documenting** core TypeScript c
 ## Installation
 
 ```bash
-git clone {repo_url}
-cd <repo-folder>
+git clone {clone_url}
+cd {repo_folder}
 npm install
 ```
 
@@ -124,7 +167,7 @@ def main():
     readme_path = os.path.join(repo_path, "README.md")
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(readme_text)
-    print(f"✅ README generated at: {readme_path} with success.")
+    print(f"✅ README generated at: {readme_path}")
 
 
 if __name__ == "__main__":
