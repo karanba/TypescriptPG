@@ -96,10 +96,11 @@ It’s designed for **learning, prototyping, and documenting** core TypeScript c
       - [`RemoteUserServiceProxy.ts`](./DesignPatterns/Structural/Proxy/RemoteUserServiceProxy.ts)
       - [`SmartReference.ts`](./DesignPatterns/Structural/Proxy/SmartReference.ts)
   - [`index.ts`](./DesignPatterns/index.ts)
+- [`scripts/`](./scripts/)
+  - [`generate_readme.py`](./scripts/generate_readme.py)
 - [`views/`](./views/)
   - [`index.ejs.html`](./views/index.ejs.html)
   - [`run.ejs.html`](./views/run.ejs.html)
-- [`doc.py`](./doc.py)
 - [`index.ts`](./index.ts)
 - [`ISample.ts`](./ISample.ts)
 
