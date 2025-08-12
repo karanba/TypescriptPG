@@ -124,7 +124,7 @@ def main():
     readme_path = os.path.join(repo_path, "README.md")
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(readme_text)
-    print(f"✅ README generated at: {readme_path}")
+    print(f"✅ README generated at: {readme_path} with success.")
 
 
 if __name__ == "__main__":
